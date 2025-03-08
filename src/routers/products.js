@@ -5,15 +5,19 @@ import {
   getProductByIdController,
   getProductsController,
   patchProductController,
+  deleteProductController
+
 } from '../controllers/products.js';
 
 const router = Router();
 
-router.get('/products', ctrlWrapper(getProductsController));
-router.get('/products/:productId', ctrlWrapper(getProductByIdController));
+router.get('/', ctrlWrapper(getProductsController));
+router.get('/:productId', ctrlWrapper(getProductByIdController));
 
-router.post('/products', ctrlWrapper(createProductController));
+router.post('/', ctrlWrapper(createProductController));
 
-router.patch('/products/:productId', ctrlWrapper(patchProductController));
+router.patch('/:productId', ctrlWrapper(patchProductController));
+
+router.delete('/:productId', ctrlWrapper(deleteProductController));
 
 export default router;

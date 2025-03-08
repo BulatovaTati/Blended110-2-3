@@ -25,3 +25,8 @@ export const patchProduct = async (productId, payload) => {
   );
   return value;
 };
+
+export const deleteProduct = async (productId) => {
+  const product = await ProductModel.findOneAndDelete({_id: productId});
+  return product;
+};
