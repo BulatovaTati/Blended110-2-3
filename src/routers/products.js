@@ -12,11 +12,12 @@ import {
   createProductSchema,
   updateProductSchema,
 } from '../validation/products.js';
+import { isValidId } from '../middlewares/validateId.js';
 
 const router = Router();
 
 router.get('/', ctrlWrapper(getProductsController));
-router.get('/:productId', ctrlWrapper(getProductByIdController));
+router.get('/:productId', isValidId, ctrlWrapper(getProductByIdController));
 
 router.post(
   '/',
@@ -26,10 +27,11 @@ router.post(
 
 router.patch(
   '/:productId',
+  isValidId,
   validateBody(updateProductSchema),
   ctrlWrapper(patchProductController),
 );
 
-router.delete('/:productId', ctrlWrapper(deleteProductController));
+router.delete('/:productId', isValidId, ctrlWrapper(deleteProductController));
 
 export default router;

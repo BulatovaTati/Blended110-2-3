@@ -1,8 +1,23 @@
 import { ProductModel } from '../db/models/products.js';
 
-export const getProducts = async () => {
-  const products = await ProductModel.find();
-  return products;
+export const getProducts = async (params) => {
+  const { category, minPrice, maxPrice } = params;
+
+  const products = ProductModel.find();
+
+  if (category) {
+    products.where('category').equals(category);
+  }
+
+  if (minPrice) {
+    products.where('price').gte(minPrice);
+  }
+
+  if (maxPrice) {
+    products.where('price').lte(maxPrice);
+  }
+
+  return await products;
 };
 
 export const getProductById = async (productId) => {
@@ -27,6 +42,6 @@ export const patchProduct = async (productId, payload) => {
 };
 
 export const deleteProduct = async (productId) => {
-  const product = await ProductModel.findOneAndDelete({_id: productId});
+  const product = await ProductModel.findOneAndDelete({ _id: productId });
   return product;
 };
