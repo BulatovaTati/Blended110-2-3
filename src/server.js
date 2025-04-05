@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 import { env } from './utils/env.js';
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -14,6 +15,7 @@ export const setupServer = () => {
 
   app.use(express.json());
   app.use(cors());
+  app.use('/api-docs', swaggerDocs());
 
   app.use('/users', userRouter);
 
